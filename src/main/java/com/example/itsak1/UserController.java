@@ -1,16 +1,11 @@
 package com.example.itsak1;
 
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.util.List;
 
 @Controller
@@ -27,25 +22,8 @@ public class UserController {
     public String login() {
         return "login";
     }
-    public static String bytesToHex(byte[] bytes) {
-        StringBuilder sb = new StringBuilder();
-        for (byte b : bytes) {
-            sb.append(String.format("%02x", b));
-        }
-        return sb.toString();
-    }
-    @SneakyThrows
-    @PostMapping("/addUser")
-    public String addUser(@RequestBody User user){
-        System.out.println("do we");
-        final MessageDigest digest = MessageDigest.getInstance("SHA3-256");
-        final byte[] hashbytes = digest.digest(
-                user.getPassword().getBytes(StandardCharsets.UTF_8));
-        String sha3Hex = bytesToHex(hashbytes);
-        System.out.println(sha3Hex);
-        userRepo.save(new User(user.getUsername(),sha3Hex));
-        return "success?";
-    }
+
+
 
 
 /*
