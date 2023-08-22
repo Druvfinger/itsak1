@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
     <style>
         form {
             border: 3px solid #f1f1f1;
@@ -44,19 +47,13 @@
         }
 
 
-        /* Add padding to containers */
         .container {
             padding: 16px;
         }
 
 
-
-
         @media screen and (max-width: 300px) {
-            span.psw {
-                display: block;
-                float: none;
-            }
+
             .cancelbtn {
                 width: 100%;
             }
@@ -66,22 +63,27 @@
 
 </head>
 
-<form action="action_page.php" method="post">
+<body>
+
+<form action="/loginValidate" method="post">
+
+    <label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+    </label>
+
+    <label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+    </label>
+
+    <p th:text="${error}"></p>
+
+    <button type="submit">Login</button>
 
 
-    <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
 
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-
-        <button type="submit">Login</button>
-
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-        <button type="button" class="cancelbtn">Cancel</button>
-
-    </div>
 </form>
+
+
+
+</body>
+</html>

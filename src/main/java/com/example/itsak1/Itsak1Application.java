@@ -15,6 +15,7 @@ public class Itsak1Application {
     @Bean
     public CommandLineRunner test(UserRepo userRepo) {
         return (args) -> {
+            User admin = new User("Admin", "admin");
             User u1 = new User("Benke", "BenkeWins");
             userRepo.save(u1);
         };
