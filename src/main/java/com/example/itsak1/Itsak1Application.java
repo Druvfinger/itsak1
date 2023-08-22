@@ -13,11 +13,16 @@ public class Itsak1Application {
     }
 
     @Bean
-    public CommandLineRunner test(UserRepo userRepo) {
+    public CommandLineRunner clr(UserRepo userRepo) {
         return (args) -> {
             User admin = new User("Admin", "admin");
             User u1 = new User("Benke", "BenkeWins");
+            User u2 = new User("Ankan", "spoon");
+            User u3 = new User("Svenne", "fido");
+            userRepo.save(admin);
             userRepo.save(u1);
+            userRepo.save(u2);
+            userRepo.save(u3);
         };
     }
 }
