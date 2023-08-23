@@ -2,7 +2,6 @@ package com.example.itsak1;
 
 import java.io.FileInputStream;
 import java.sql.*;
-import java.util.List;
 import java.util.Properties;
 
 public class RepoInjection {

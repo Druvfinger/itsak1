@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
-    private RepoInjection repoInjection = new RepoInjection();
+    private final RepoInjection repoInjection = new RepoInjection();
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
