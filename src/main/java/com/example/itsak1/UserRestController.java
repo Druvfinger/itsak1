@@ -26,8 +26,7 @@ public class UserRestController {
         String sha3Hex = bytesToHex(hashbytes);
         System.out.println(sha3Hex);
         userRepo.save(new User(user.getUsername(),sha3Hex));
-        return "success?";
-
+        return "New user added!";
     }
     public String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();

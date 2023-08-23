@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.SecureRandom;
 import java.util.List;
 
 @Controller
@@ -41,7 +42,7 @@ public class UserController {
             List<User> userList = userRepo.findAll();
             model.addAttribute("userList", userList);
             return "admin";
-        } else if (user.getUsername() == null) {
+        } else if (user == null) { //Nått knas
             model.addAttribute("error", "Wrong username or password!");
             log.info("Wrong username or password");
             return "login";
@@ -64,6 +65,8 @@ public class UserController {
        final byte[] hashbytes = digest.digest(
                password.getBytes(StandardCharsets.UTF_8));
        String sha3Hex = bytesToHex(hashbytes);
+
+       SecureRandom sr = new SecureRandom();
 
         if (user != null && user.getUsername().equals("Admin") && user.getPassword().equals(sha3Hex)) {
             log.info("Admin");
