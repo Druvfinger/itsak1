@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class RepoInjection {
 
-    private Properties properties = new Properties();
+    private final Properties properties = new Properties();
 
     public RepoInjection(){
         try{
