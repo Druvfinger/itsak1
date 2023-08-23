@@ -23,7 +23,7 @@ public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/login")
-    public String login() {
+    public String loginPage() {
         return "login";
     }
 
@@ -35,7 +35,7 @@ public class UserController {
  @PostMapping("/loginValidate")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
         User user = repoInjection.login(username, password);
-
+     System.out.println(user.getUsername() + " - " + user.getPassword());
         if (user.getUsername().equals("Admin")) {
             log.info("Admin");
             List<User> userList = userRepo.findAll();
