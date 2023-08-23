@@ -1,11 +1,15 @@
 package com.example.itsak1;
 
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.List;
 
 @Controller
@@ -50,16 +54,23 @@ public class UserController {
 */
 
 //Can not do injection
+   @SneakyThrows
    @PostMapping("/loginValidate")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
+
         User user = userRepo.findByUsername(username);
 
-        if (user != null && user.getUsername().equals("Admin") && user.getPassword().equals(password)) {
+       final MessageDigest digest = MessageDigest.getInstance("SHA3-256");
+       final byte[] hashbytes = digest.digest(
+               password.getBytes(StandardCharsets.UTF_8));
+       String sha3Hex = bytesToHex(hashbytes);
+
+        if (user != null && user.getUsername().equals("Admin") && user.getPassword().equals(sha3Hex)) {
             log.info("Admin");
             List<User> userList = userRepo.findAll();
             model.addAttribute("userList", userList);
             return "admin";
-        } else if (user != null && user.getPassword().equals(password)) {
+        } else if (user != null && user.getPassword().equals(sha3Hex)) {
             model.addAttribute("message", "Welcome " + username + "!");
             log.info("Logged in");
             return "welcome";
@@ -70,10 +81,18 @@ public class UserController {
         }
     }
 
-
+    public String bytesToHex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    }
 
     public void setUserRepo(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
 
 }
+
+
