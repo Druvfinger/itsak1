@@ -66,8 +66,6 @@ public class UserController {
                password.getBytes(StandardCharsets.UTF_8));
        String sha3Hex = bytesToHex(hashbytes);
 
-       SecureRandom sr = new SecureRandom();
-
         if (user != null && user.getUsername().equals("Admin") && user.getPassword().equals(sha3Hex)) {
             log.info("Admin");
             List<User> userList = userRepo.findAll();
