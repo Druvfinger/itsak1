@@ -31,7 +31,7 @@ public class RepoInjection {
                 int id = rs.getInt("user.id");
                 String userName = rs.getString("user.username");
                 String pass = rs.getString("user.password");
-                return new User(id, userName, pass);
+                return new User(userName, pass);
             }
 
 
